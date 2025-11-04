@@ -250,12 +250,12 @@ After training, please refer to the [Evaluation](#evaluation) section above to e
 
 | Model     | Libero-Spatial | Libero-Object | Libero-Goal | Libero-10 | Average | Config | Checkpoint  Link |
 | -         | -              | -             | -           | -         | -       | -      | -                |
-| [CogACT](https://arxiv.org/abs/2411.19650)    | 97.2 | 98.0 | 90.2 | 88.8 | 93.6 | - | - |
-| DB-CogACT | 93.8 | 97.8 | 96.2 | 91.8 | 94.9 | [libero_cogact.py](playground/benchmarks/libero/libero_cogact.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/libero-db-cogact) |
-| [Pi-0](https://arxiv.org/abs/2410.24164) | 96.8 | 98.8 | 95.8 | 85.2 | 94.2 | - | - |
-| DB-Pi0 | 97 | 98.2 | 94 | 86.4 | 93.9 | [libero_pi0.py](playground/benchmarks/libero/libero_pi0.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/libero-db-pi0) |
-| [MemVLA](https://arxiv.org/abs/2508.19236) | 98.4 | 98.4 | 96.4 | 93.4 |96.7 | - |
-| DB-MemVLA | 97.2 | 99.2 | 98.4 | 93.2 | 97.0 | [libero_memvla.py](https://github.com/Dexmal/dexbotic/blob/main/playground/benchmarks/libero/libero_memvla.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/libero-db-memvla) | [🤗 Hugging Face](https://huggingface.co/Dexmal/libero-db-memvla) |
+| CogACT    | 97.2 | 98.0 | 90.2 | 88.8 | 93.6 | - | - |
+| DB-CogACT | 93.8 | 97.8 | 96.2 | 91.8 | 94.9 | [libero_cogact.py](playground/benchmarks/libero/libero_cogact.py) | [🤗 HF](https://huggingface.co/Dexmal/libero-db-cogact) |
+| π0 | 96.8 | 98.8 | 95.8 | 85.2 | 94.2 | - | - |
+| DB-π0 | 97 | 98.2 | 94 | 86.4 | 93.9 | [libero_pi0.py](playground/benchmarks/libero/libero_pi0.py) | [🤗 HF](https://huggingface.co/Dexmal/libero-db-pi0) |
+| MemVLA | 98.4 | 98.4 | 96.4 | 93.4 |96.7 | - |
+| DB-MemVLA | 97.2 | 99.2 | 98.4 | 93.2 | 97.0 | [libero_memvla.py](https://github.com/Dexmal/dexbotic/blob/main/playground/benchmarks/libero/libero_memvla.py) | [🤗 HF](https://huggingface.co/Dexmal/libero-db-memvla) | [🤗 HF](https://huggingface.co/Dexmal/libero-db-memvla) |
 
 ### CALVIN
 
@@ -263,34 +263,34 @@ After training, please refer to the [Evaluation](#evaluation) section above to e
 
 | Model | 1 | 2 | 3 | 4 | 5 | Average Length | Config | Checkpoint  Link |
 | -         | -      | - | -             | -           | -         | -       | -      | -                |
-| [CogACT](https://arxiv.org/abs/2411.19650) | 83.8 | 72.9 | 64 | 55.9 | 48 | 3.246 | - | - |
-| DB-CogACT | 93.5 | 86.7 | 80.3 | 76 | 69.8 | 4.063 | [calvin_cogact.py](playground/benchmarks/calvin/calvin_cogact.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/calvin-db-cogact) |
-| [OFT](https://arxiv.org/abs/2502.19645) | 89.1 | 79.4 | 67.4 | 59.8 | 51.5 | 3.472 | - | - |
-| DB-OFT | 92.8 | 80.7 | 69.2 | 60.2 | 51.1 | 3.540 | [calvin_oft.py](playground/benchmarks/calvin/calvin_oft.py) |  [🤗 Hugging Face](https://huggingface.co/Dexmal/calvin-db-oft) |
+| CogACT | 83.8 | 72.9 | 64 | 55.9 | 48 | 3.246 | - | - |
+| DB-CogACT | 93.5 | 86.7 | 80.3 | 76 | 69.8 | 4.063 | [calvin_cogact.py](playground/benchmarks/calvin/calvin_cogact.py) | [🤗 HF](https://huggingface.co/Dexmal/calvin-db-cogact) |
+| OFT | 89.1 | 79.4 | 67.4 | 59.8 | 51.5 | 3.472 | - | - |
+| DB-OFT | 92.8 | 80.7 | 69.2 | 60.2 | 51.1 | 3.540 | [calvin_oft.py](playground/benchmarks/calvin/calvin_oft.py) |  [🤗 HF](https://huggingface.co/Dexmal/calvin-db-oft) |
 
-### Simpler-Env
+### SimplerEnv
 
 > Our training uses the Bridge dataset and is tested on the WidowX environment.
 
 | Model | Put Spoon on Towel | Put Carrot on Plate | Stack Green Block on Yellow Block |Put Eggplant in Yellow Basket | Average | Config | Checkpoint  Link |
 | -         | -              | -             | -           | -         | -       | -      | -                |
-| [CogACT](https://arxiv.org/abs/2411.19650)    | 71.7 | 50.8 | 15 |67.5 | 51.25 | - | - |
-| DB-CogACT | 87.5 | 65.28 | 29.17 | 95.83 | 69.45 | [simpler_cogact.py](playground/benchmarks/simpler/simpler_cogact.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/simpler-db-cogact) |
-| [OFT](https://arxiv.org/abs/2502.19645) | 12.5 | 4.2 | 4.2 | 100 | 30.23 | - | - |
-| DB-OFT | 91.67 | 76.39 | 43.06 | 94.44 | 76.39 | [simpler_oft.py](playground/benchmarks/simpler/simpler_oft.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/simpler-db-oft) |
-| [MemVLA](https://arxiv.org/abs/2508.19236) | 75.0 | 75.0 | 37.5 | 100.0 | 71.9 | - | - |
-| DB-MemVLA | 100.0 | 66.7 | 70.8 | 100.0 | 84.4 | [simpler_memvla.py](playground/benchmarks/simpler/simpler_memvla.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/simpler-db-memvla) |
+| CogACT    | 71.7 | 50.8 | 15 |67.5 | 51.25 | - | - |
+| DB-CogACT | 87.5 | 65.28 | 29.17 | 95.83 | 69.45 | [simpler_cogact.py](playground/benchmarks/simpler/simpler_cogact.py) | [🤗 HF](https://huggingface.co/Dexmal/simpler-db-cogact) |
+| OFT | 12.5 | 4.2 | 4.2 | 100 | 30.23 | - | - |
+| DB-OFT | 91.67 | 76.39 | 43.06 | 94.44 | 76.39 | [simpler_oft.py](playground/benchmarks/simpler/simpler_oft.py) | [🤗 HF](https://huggingface.co/Dexmal/simpler-db-oft) |
+| MemVLA | 75.0 | 75.0 | 37.5 | 100.0 | 71.9 | - | - |
+| DB-MemVLA | 100.0 | 66.7 | 70.8 | 100.0 | 84.4 | [simpler_memvla.py](playground/benchmarks/simpler/simpler_memvla.py) | [🤗 HF](https://huggingface.co/Dexmal/simpler-db-memvla) |
 
 ### ManiSkill2
 
 | Model | PickCube | StackCube | PickSingleYCB | PickSingleEGAD | PickClutterYCB | Average | Config | Checkpoint  Link |
 | -         | -              | -             | -           | -         | -       | -      | -      | -                |
-| [CogACT](https://arxiv.org/abs/2411.19650)    | 55 | 70 | 30 | 25 | 20 | 40 | - | - |
-| DB-CogACT | 90 | 65 | 65 | 40 | 30 | 58 | [maniskill2_cogact.py](playground/benchmarks/maniskill2/maniskill2_cogact.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/maniskill2-db-cogact) |
-| [OFT](https://arxiv.org/abs/2502.19645) | 40 | 45 | 5 | 5 | 0 | 21 | - | - |
-| DB-OFT | 90 | 75 | 55 | 65 | 30 | 63 | [maniskill2_oft.py](playground/benchmarks/maniskill2/maniskill2_oft.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/maniskill2-db-oft) |
-| [Pi-0](https://arxiv.org/abs/2410.24164) | 90 | 50 | 25 | 15 | 15 | 39 | - | - |
-| DB-Pi0 | 90 | 90 | 55 | 50 | 20 | 61 | [maniskill2_pi0.py](playground/benchmarks/maniskill2/maniskill2_pi0.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/maniskill2-db-pi0) |
+| CogACT    | 55 | 70 | 30 | 25 | 20 | 40 | - | - |
+| DB-CogACT | 90 | 65 | 65 | 40 | 30 | 58 | [maniskill2_cogact.py](playground/benchmarks/maniskill2/maniskill2_cogact.py) | [🤗 HF](https://huggingface.co/Dexmal/maniskill2-db-cogact) |
+| OFT | 40 | 45 | 5 | 5 | 0 | 21 | - | - |
+| DB-OFT | 90 | 75 | 55 | 65 | 30 | 63 | [maniskill2_oft.py](playground/benchmarks/maniskill2/maniskill2_oft.py) | [🤗 HF](https://huggingface.co/Dexmal/maniskill2-db-oft) |
+| π0 | 95 | 85 | 55 | 85 | 10 | 66 | - | - |
+| DB-π0 | 95 | 85 | 65 | 50 | 30 | 65 | [maniskill2_pi0.py](playground/benchmarks/maniskill2/maniskill2_pi0.py) | [🤗 HF](https://huggingface.co/Dexmal/maniskill2-db-pi0) |
 
 ### RoboTwin2.0
 
@@ -298,11 +298,28 @@ After training, please refer to the [Evaluation](#evaluation) section above to e
 
 | Model | Adjust Bottle | Grab Roller | Place Empty Cup |Place Phone Stand | Average | Config | Checkpoint  Link |
 | -         | -              | -             | -           | -         | -       | -      | -                |
-| [CogACT](https://arxiv.org/abs/2411.19650)    | 87 | 72 | 11 |5 | 43.75 | - | - |
-| DB-CogACT | 99 | 89 | 28 | 18 | 58.5 | [robotwin2_cogact.py](playground/benchmarks/robotwin2/robotwin2_cogact.py) | [🤗 Hugging Face](https://huggingface.co/Dexmal/robotwin-db-cogact) |
+| CogACT   | 87 | 72 | 11 |5 | 43.8 | - | - |
+| DB-CogACT | 99 | 89 | 28 | 18 | 58.5 | [robotwin2_cogact.py](playground/benchmarks/robotwin2/robotwin2_cogact.py) | [🤗 HF](https://huggingface.co/Dexmal/robotwin-db-cogact) |
 
 # FAQ
 
 1. Failed to install Flash-Attention: 
 
 For detailed installation instructions and troubleshooting, please refer to the official documentation at https://github.com/Dao-AILab/flash-attention.
+
+# Citaion
+
+If you find this useful in your research, please consider citing:
+
+```bibtex
+@article{dexbotic,
+  title={Dexbotic: Open-Source Vision-Language-Action Toolbox},
+  author={Dexbotic Contributors},
+  journal={arXiv preprint arXiv:2510.23511},
+  year={2025}
+}
+```
+
+# Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Dexmal/dexbotic&type=date&legend=top-left)](https://www.star-history.com/#Dexmal/dexbotic&type=date&legend=top-left)
