@@ -36,6 +36,7 @@ Dexbotic aims to provide a one-stop VLA research service for professionals in em
 
 ## 🔥News!
 
++ [2025-12-29] Dexbotic supports [OFT](playground/benchmarks/libero/libero_oft.py) and [Pi0.5](playground/benchmarks/libero/libero_pi05.py).
 + [2025-10-20] Dexbotic has been released. Checkout the [paper](docs/Dexbotic_Tech_Report.pdf) and [document](https://dexbotic.com/docs/) for details.
 
 ## Open-Source Plan
@@ -53,7 +54,7 @@ Dexbotic aims to provide a one-stop VLA research service for professionals in em
 |                      | OFT                     | ✔️     |
 |                      | CogACT                  | ✔️     |
 |                      | MemoryVLA               | ✔️     |
-|                      | Pi0.5                   | ✖️     |
+|                      | Pi0.5                   | ✔️     |
 | **Navigation Policy**  | MUVLA                 | ✔️     |
 |                      | NaVid                   | ✖️     |
 |                      | NaVILA                  | ✖️     |
