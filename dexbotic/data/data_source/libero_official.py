@@ -25,6 +25,7 @@ LIBERO_DATASET = {
         "data_path_prefix": "./data/libero/libero_pi0_all/image",
         "annotations": './data/libero/libero_pi0_all',
         "frequency": 1,
+    },
     "oft_all": {
         "data_path_prefix": "./data/libero/libero_oft_all",
         "annotations": './data/libero/libero_oft_all',
