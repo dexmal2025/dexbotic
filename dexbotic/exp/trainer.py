@@ -20,6 +20,7 @@ class DexboticTrainer(Trainer):
         self.exp_config: BaseExp = kwargs.pop("exp_config")
         training_args = self._link_exp_config()
         super().__init__(*args, args=training_args, **kwargs)
+        self.loss_cache = {}
 
     def create_optimizer(self) -> torch.optim.Optimizer:
         opt_model: DexboticVLMModel = self.model
@@ -121,8 +122,21 @@ class DexboticTrainer(Trainer):
 
     def compute_loss(self, model, inputs, return_outputs=False, *args, **kwargs):
         loss, outputs = super().compute_loss(model, inputs, return_outputs=True)
+        loss_keys = [_ for _ in outputs if _.endswith("_loss")]
 
+        for loss_key in loss_keys:
+            if outputs[loss_key] is None or torch.isclose(
+                outputs[loss_key], torch.zeros_like(outputs[loss_key])
+            ):
+                if loss_key not in self.loss_cache:
+                    self.loss_cache[loss_key] = 0.0
+                continue
+            self.loss_cache[loss_key] = outputs[loss_key].detach().item()
         return (loss, outputs) if return_outputs else loss
+
+    def log(self, logs: dict[str, float], start_time: Optional[float] = None) -> None:
+        logs.update(self.loss_cache)
+        super().log(logs, start_time)
 
 
 def safe_save_model_for_hf_trainer(trainer: transformers.Trainer,

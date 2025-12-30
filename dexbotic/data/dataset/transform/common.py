@@ -44,18 +44,24 @@ class ToTensor:
 class ToList:
     """Convert episode dict to frame list
 
-       This transform is the inverse of ToDict and should be used in the end of the pipeline.
+    This transform is the inverse of ToDict and should be used in the end of the pipeline.
     """
 
-    def __call__(self, episode_data_dict: dict, **kwargs) -> dict:
+    def __init__(self, select_frame: bool = False):
+        self.select_frame = select_frame
 
-        episode_data_dict.pop('meta_data', None)
-        list_length = len(episode_data_dict.get('prompt') or episode_data_dict.get('conversations'))
+    def __call__(self, episode_data_dict: dict, **kwargs) -> dict:
+        meta_data = episode_data_dict.pop("meta_data", None)
+        list_length = len(
+            episode_data_dict.get("prompt") or episode_data_dict.get("conversations")
+        )
         episode_data_list = []
         for i in range(list_length):
             episode_data_list.append({})
             for key, value in episode_data_dict.items():
                 episode_data_list[i][key] = value[i]
+        if self.select_frame:
+            episode_data_list = episode_data_list[meta_data["fram_indicies"][0]]
         return episode_data_list
 
 
@@ -107,3 +113,31 @@ class ExtracKeys:
             assert key in episode_data_dict, f'{key} is not in {episode_data_dict["meta_data"]["jsonl_file"]}'
 
         return {key: episode_data_dict[key] for key in keys}
+
+
+class AddActionFlag:
+    def __init__(self, empty_action_value: np.ndarray, enable=True):
+        self.empty_action_value = empty_action_value
+        self.enable = enable
+
+    def __call__(self, episode_data_dict: dict, **kwargs) -> dict:
+        if not self.enable:
+            return episode_data_dict
+        episode_data_dict["has_action"] = np.ones((1,), dtype=bool)
+        if "action" not in episode_data_dict:
+            episode_data_dict["action"] = np.zeros_like(self.empty_action_value)
+            episode_data_dict["has_action"] = np.zeros((1,), dtype=bool)
+
+        return episode_data_dict
+
+
+class AddTextFlag:
+    def __init__(self, enable=True):
+        self.enable = enable
+
+    def __call__(self, episode_data_dict: dict, **kwargs) -> dict:
+        if not self.enable:
+            return episode_data_dict
+        if "has_text" not in episode_data_dict:
+            episode_data_dict["has_text"] = np.ones((1,), dtype=bool)
+        return episode_data_dict

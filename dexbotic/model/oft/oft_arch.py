@@ -71,6 +71,7 @@ class OFTForCausalLM(DexboticForCausalLM, ActionOutputForCausalLM):
                 actions: Optional[torch.LongTensor] = None,
                 states: Optional[torch.LongTensor] = None,
                 noisy_dict: Optional[dict[str, torch.FloatTensor]] = None,
+                **kwargs,
                 ) -> CausalLMOutputDexbotic:
 
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions

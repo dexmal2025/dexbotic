@@ -560,6 +560,7 @@ class MemVLAForCausalLM(DexboticForCausalLM, ActionOutputForCausalLM):
                 states: Optional[torch.LongTensor] = None,
                 repeated_diffusion_steps: int = 4,
                 indexes: List[int] = None,
+                **kwargs,
                 ) -> CausalLMOutputDexbotic:
 
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions

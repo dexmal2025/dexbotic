@@ -55,7 +55,7 @@ class LoadMultiModal:
             keys_to_parse = [
                 key for key in episode_data_dict.keys() if key.startswith('images')]
         else:
-            keys_to_parse = image_keys
+            keys_to_parse = [key for key in image_keys if key in episode_data_dict.keys()]
         keys_to_parse.sort()
         if self.return_masks:
             image_masks = [True if f"images_{i}" in episode_data_dict.keys() else False for i in range(1, num_images + 1)]

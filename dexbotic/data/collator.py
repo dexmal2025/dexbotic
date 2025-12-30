@@ -53,6 +53,8 @@ class DataCollatorForSupervisedDataset(object):
             'state': 'states',
             'reward': 'reward',
             'image_masks': 'image_masks',
+            'has_action': 'has_action',
+            'has_text': 'has_text',
         }
         for key in mapping_keys:
             if key in instances[0]:

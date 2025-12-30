@@ -93,7 +93,9 @@ An example structure is shown below:
 
     // Optional fields
     "answer": "answer text",
-    "action": [0.12, 0.24]
+    "action": [0.12, 0.24],
+    "conversations": [{"from": "human", "value": "<image>\nWhat are the colors of the box in the image?"},
+                      {"from": "gpt", "value": "The box in the image is red."}]
 }
 
 ```
@@ -121,6 +123,13 @@ Field Specifications:
     + Responses can be specified in two ways:
         + Directly: via the answer key.
         + Indirectly: leave answer empty, and Dexdata will use `ActionNormAnd2String` to convert actions into discretized textual responses.
+    + **Multi-turn dialogue format (`conversations`)**: Use the `conversations` field for general multimodal dialogue data to support multi-turn conversations (LLaVA-compatible format). This is equivalent to `prompt`/`answer` but supports multiple dialogue turns.
+        + If `conversations` exists, it is used directly; otherwise, `prompt` and `answer` are automatically converted to `conversations` format.
+        + Format: A list of dialogue turns, each containing:
+            + `{"from": "human", "value": "..."}` - user message (use `<image>` to reference images)
+            + `{"from": "gpt", "value": "..."}` - assistant response
+        + Single-turn example: `[{"from": "human", "value": "<image>\nWhat color is the box?"}, {"from": "gpt", "value": "The box is red."}]`
+        + Multi-turn example: `[{"from": "human", "value": "<image>\nWhat's in the image?"}, {"from": "gpt", "value": "A red box."}, {"from": "human", "value": "What color?"}, {"from": "gpt", "value": "Red."}]`
 
 + Robot vs. general conversation data [**Important**]
     + The is_robot flag distinguishes robot data (true) from general data (false).

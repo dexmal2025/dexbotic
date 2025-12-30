@@ -99,12 +99,14 @@ class ActionModel(nn.Module):
         )
 
     # Given condition z and ground truth token x, compute loss
-    def loss(self, x, z):
+    def loss(self, x, z, reduction="mean"):
+        assert reduction in ["mean", "sum", "none"]
 
         # sample random noise and timestep
         noise = torch.randn_like(x)  # [B, T, C]
-        timestep = torch.randint(0, self.diffusion.num_timesteps,
-                                 (x.size(0),), device=x.device)
+        timestep = torch.randint(
+            0, self.diffusion.num_timesteps, (x.size(0),), device=x.device
+        )
 
         # sample x_t from x
         x_t = self.diffusion.q_sample(x, timestep, noise)
@@ -114,8 +116,11 @@ class ActionModel(nn.Module):
 
         assert noise_pred.shape == noise.shape == x.shape
         # Compute L2 loss
-        loss = ((noise_pred - noise) ** 2).mean()
-        # Optional: loss += loss_vlb
+        loss = (noise_pred - noise) ** 2
+        if reduction == "mean":
+            loss = loss.mean()
+        elif reduction == "sum":
+            loss = loss.sum()
 
         return loss
 

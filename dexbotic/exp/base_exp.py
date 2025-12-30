@@ -453,6 +453,8 @@ class ComputeNormActionConfig(ActionConfig):
         norm_files = {}
 
         for dataset_name, dataset in dataset_list:
+            if dataset_name.startswith('general'):
+                continue
             norm_file = self._process_one_dataset(dataset_name, dataset)
             norm_files[dataset_name] = (norm_file, dataset.dataset_map[0])
 
@@ -818,7 +820,9 @@ class BaseExp(Config):
         self.trainer = trainer
 
         # step 5: save action norm config
-        if hasattr(train_dataset.action_process_func, 'statistic_mapping'):
+        if self.local_rank == 0 and hasattr(
+            train_dataset.action_process_func, "statistic_mapping"
+        ):
             logger.info(
                 f"Saving action norm config to {self.trainer_config.output_dir}/norm_stats.json")
             os.makedirs(self.trainer_config.output_dir, exist_ok=True)

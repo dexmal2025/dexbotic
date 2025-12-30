@@ -30,6 +30,8 @@ class CausalLMOutputDexbotic(ModelOutput):
     past_key_values: Optional[Tuple[Tuple[torch.FloatTensor]]] = None
     hidden_states: Optional[Tuple[torch.FloatTensor, ...]] = None
     attentions: Optional[Tuple[torch.FloatTensor, ...]] = None
+    text_loss: Optional[torch.FloatTensor] = None
+    action_loss: Optional[torch.FloatTensor] = None
 
 
 class DexboticPretrainedModel(PreTrainedModel):

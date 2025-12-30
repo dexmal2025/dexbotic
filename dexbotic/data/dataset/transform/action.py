@@ -292,12 +292,14 @@ class ActionNormAnd2String:
     def __init__(self,
                  statistic_mapping: dict = {'default': {'min': -1, 'max': 1}},
                  vocab_size: int = 255,
-                 string_format: str = ' {value}'
+                 string_format: str = ' {value}',
+                 add_answer: bool = True,
                  ):
         """Args:
             statistic_mapping: dict, the **per prompt** statistic mapping of the action, including 'min' and 'max'
             vocab_size: int, the vocabulary size of the action string. Default: 255
             string_format: str, the format of the action string. Default: ' {value}'
+            add_answer: bool, whether to add the answer to the episode_data_dict. Default: True
 
         Note: the statistic_mapping should has a `default` key, which is the default statistic mapping for the action.
         it is also possible to have several `[dataset]` keys, which are dicts that contain the statistic mapping for
@@ -320,6 +322,7 @@ class ActionNormAnd2String:
         self.vocab_size = vocab_size
         self.statistic_mapping = statistic_mapping
         self.string_format = string_format
+        self.add_answer = add_answer
 
         assert 'default' in self.statistic_mapping, 'the default statistic mapping should be provided'
 
@@ -367,7 +370,7 @@ class ActionNormAnd2String:
         bin_action = self._action2bin(normalized_action, self.vocab_size)
         action_str = self._bin2string(bin_action, self.string_format)
 
-        if 'answer' not in episode_data_dict:
+        if self.add_answer and "answer" not in episode_data_dict:
             episode_data_dict['answer'] = action_str
 
         return episode_data_dict

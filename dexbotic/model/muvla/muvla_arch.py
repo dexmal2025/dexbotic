@@ -500,7 +500,8 @@ class MUVLAForCausalLM(DexboticForCausalLM):
                 actions: Optional[torch.LongTensor] = None,
                 states: Optional[torch.LongTensor] = None,
                 repeated_diffusion_steps: int = 4,
-                reward: Optional[torch.FloatTensor] = None
+                reward: Optional[torch.FloatTensor] = None,
+                **kwargs,
                 ) -> CausalLMOutputDexbotic:
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
