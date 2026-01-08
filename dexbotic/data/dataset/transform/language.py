@@ -7,26 +7,23 @@ defalut_prompt_template = "<image>\nWhat action should the robot take to {prompt
 class AddPromptTemplate:
     """Add the prompt template to `prompt` in the episode_data_dict.
 
-    Have no effect if the `is_robot` is not in the episode_data_dict or is_robot is False.
+       Have no effect if the `is_robot` is not in the episode_data_dict or is_robot is False.
     """
 
-    def __init__(
-        self,
-        prompt_template: str = defalut_prompt_template,
-    ):
+    def __init__(self,
+                 prompt_template: str = defalut_prompt_template,
+                 ):
         """Args:
-        prompt_template: Tuple[str, (str) -> str], the prompt template for the robot. Default: defalut_prompt_template
+            prompt_template: Tuple[str, (str) -> str], the prompt template for the robot. Default: defalut_prompt_template
         """
 
         self.prompt_template = prompt_template
 
     def __call__(self, episode_data_dict: dict, **kwargs) -> dict:
         # assume all data in the episode_data_dict has the same value of `is_robot`
-        if "is_robot" in episode_data_dict and episode_data_dict["is_robot"][0]:
-            episode_data_dict["prompt"] = [
-                self.prompt_template.format(prompt=_)
-                for _ in episode_data_dict["prompt"]
-            ]
+        if 'is_robot' in episode_data_dict and episode_data_dict['is_robot'][0]:
+            episode_data_dict['prompt'] = [
+                self.prompt_template.format(prompt=_) for _ in episode_data_dict['prompt']]
         return episode_data_dict
 
 

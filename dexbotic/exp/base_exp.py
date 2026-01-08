@@ -18,7 +18,11 @@ from easydict import EasyDict
 from loguru import logger
 from torch.utils.data import DataLoader
 from transformers import AutoImageProcessor, BaseImageProcessor, AutoTokenizer
-from transformers.trainer import ALL_LAYERNORM_LAYERS, get_parameter_names
+from transformers.trainer_pt_utils import get_parameter_names
+try:
+    from transformers.trainer import ALL_LAYERNORM_LAYERS
+except ImportError:
+    from transformers.pytorch_utils import ALL_LAYERNORM_LAYERS
 
 from dexbotic.constants import DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX
 import dexbotic.data.utils.normalize as normalize

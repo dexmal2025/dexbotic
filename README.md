@@ -75,7 +75,7 @@ We strongly recommend using the docker as a unified, consistent, and reproducibl
 
 + Ubuntu 20.04 or 22.04
 
-+ NVIDIA GPU: RTX 4090 / A100 / H100 (8 GPUs recommended for training; 1 GPU for deployment)
++ NVIDIA GPU: RTX 4090 / RTX 5090 / A100 / H100 (8 GPUs recommended for training; 1 GPU for deployment)
 
 + NVIDIA Docker installed
 
@@ -101,6 +101,29 @@ cd /dexbotic
 conda activate dexbotic
 pip install -e .
 ```
+
+<details>
+<summary>Using on Blackwell GPUs</summary>
+
+For users with Blackwell GPUs (e.g., B100, RTX 5090), please use the specialized Docker image `dexmal/dexbotic:c130t28`.
+
+**Step 1: Start Docker with Blackwell Image**
+
+```bash
+docker run -it --rm --gpus all --network host \
+  -v /path/to/dexbotic:/dexbotic \
+  dexmal/dexbotic:c130t28 \
+  bash
+```
+
+**Step 2: Activate Environment**
+
+```bash
+cd /dexbotic
+pip install -e .
+```
+
+</details>
 
 ### Conda Installation
 
@@ -129,6 +152,7 @@ conda activate dexbotic
 pip install torch==2.2.2 torchvision==0.17.2 xformers --index-url https://download.pytorch.org/whl/cu118
 cd dexbotic
 pip install -e .
+pip install transformers=4.51.0
 
 # Install FlashAttention
 pip install ninja packaging

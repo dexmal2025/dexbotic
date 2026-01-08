@@ -21,11 +21,10 @@ dependencies = [
     "torchvision",
 
     # Core ML/AI dependencies
-    "transformers==4.51.0",
+    "transformers",
     "accelerate",
     "peft",
     "bitsandbytes",
-    "deepspeed==0.14.1",
     "einops",
     "einops-exts",
     "tokenizers",
@@ -52,7 +51,7 @@ dependencies = [
     "flask",
     "httpx",
     "requests",
-    "pydantic==2.10.6",
+    "pydantic",
 
     # UI and visualization
     "gradio",
@@ -64,7 +63,7 @@ dependencies = [
 
     # Utilities
     "pyramid==1.5",
-    "numpydantic==1.6.7",
+    "numpydantic==1.1.0",
     "protobuf",
     "pypandoc",
     "shortuuid",

@@ -1,0 +1,26 @@
+FROM nvcr.io/nvidia/pytorch:25.08-py3
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
+
+RUN sed -i -e "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list && \
+    sed -i -e "s/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean && apt-get update -y && \
+    apt-get install --assume-yes --fix-missing build-essential && \
+    apt-get install -y openssh-server vim git curl tmux && \
+    rm -rf /var/lib/apt/lists/* && apt-get clean
+
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+WORKDIR /app
+
+RUN mkdir -p /app/dexbotic && touch /app/dexbotic/__init__.py
+COPY pyproject.toml /app/pyproject.toml
+
+RUN apt remove python3-blinker -y
+
+RUN pip install -e . && pip install transformers==4.54.0
+
+RUN pip install deepspeed==0.17.1
+
+CMD ["bash"]
