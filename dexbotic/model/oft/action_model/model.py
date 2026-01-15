@@ -1,6 +1,7 @@
 """Implementations of various action heads, which serve as alternatives to VLM sequential token prediction."""
 
 import math
+import re
 
 import numpy as np
 import torch
@@ -268,3 +269,79 @@ class DiffusionActionHead(nn.Module):
         # Get diffusion model's noise prediction.
         noise_pred = self.noise_predictor(rearranged_actions_hidden_states)
         return noise_pred
+
+class DiscreteActionHead(nn.Module):
+    """
+    Discrete action head that uses LLM text output as discretized actions.
+    Similar to discrete_vla implementation but integrated into OFT architecture.
+    """
+
+    def __init__(
+        self,
+        input_dim=4096,
+        vocab_size=32000,
+        action_dim=7,
+        action_chunk=16,
+        num_bins=256,
+        use_proprio=False,
+        proprio_dim=None,
+    ):
+        super().__init__()
+        self.vocab_size = vocab_size
+        self.action_dim = action_dim
+        self.action_chunk = action_chunk
+        self.num_bins = num_bins
+        self.use_proprio = use_proprio
+
+        self.action_query = torch.ones(1, action_chunk * action_dim)
+
+        if use_proprio:
+            self.proprio_projector = ProprioProjector(
+                llm_dim=input_dim, proprio_dim=proprio_dim
+            )
+
+    def discretize_actions(self, actions):
+        """
+        Convert continuous actions to discrete bins.
+        actions: (batch_size, chunk_len, action_dim) in range [-1, 1]
+        Returns: (batch_size, chunk_len, action_dim) discrete indices
+        """
+        # Clip actions to [-1, 1] range
+        actions = torch.clamp(actions, -1, 1)
+        # Convert to [0, num_bins-1] range
+        discrete_actions = ((actions + 1) / 2 * (self.num_bins - 1)).round().long()
+        return discrete_actions
+
+    def continuous_to_discrete_tokens(self, actions):
+        """
+        Convert continuous actions to discrete token sequences.
+        actions: (batch_size, chunk_len, action_dim)
+        Returns: (batch_size, chunk_len * action_dim) token indices
+        """
+        discrete_actions = self.discretize_actions(actions)
+        # Flatten to sequence of tokens
+        return discrete_actions.reshape(discrete_actions.size(0), -1)
+
+    def discrete_tokens_to_continuous(self, token_ids):
+        """
+        Convert discrete token IDs back to continuous actions.
+        token_ids: (batch_size, chunk_len * action_dim) or text string
+        Returns: (batch_size, chunk_len, action_dim) continuous actions
+        """
+        if isinstance(token_ids, str):
+            # Extract numbers from text string
+            actions = re.findall(r"\d+", token_ids)[
+                : self.action_chunk * self.action_dim
+            ]
+            actions = np.array([int(action) for action in actions], dtype=np.float32)
+            actions = actions.reshape(1, self.action_chunk, self.action_dim)
+            actions = torch.from_numpy(actions)
+        else:
+            # Convert token IDs to continuous actions
+            actions = token_ids.reshape(
+                token_ids.size(0), self.action_chunk, self.action_dim
+            ).float()
+
+        # Convert from [0, num_bins-1] to [-1, 1] range
+        actions = (actions / (self.num_bins - 1)) * 2 - 1
+        return actions

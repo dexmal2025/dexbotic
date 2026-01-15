@@ -1,5 +1,5 @@
 from dexbotic.exp.utils import require_config_keys
-from .model import L1RegressionActionHead, DiffusionActionHead
+from .model import L1RegressionActionHead, DiffusionActionHead, DiscreteActionHead
 
 
 @require_config_keys(["action_model_type", "hidden_size", "action_dim", "chunk_size", "use_proprio", "proprio_dim"])
@@ -12,7 +12,7 @@ def build_action_model(config):
     use_proprio = config.use_proprio
     proprio_dim = config.proprio_dim
     
-    assert model_type in ["Linear", "DiT"], f"Unsupported action model type: {model_type}"
+    assert model_type in ["Linear", "DiT", "Discrete"], f"Unsupported action model type: {model_type}"
     if "Linear" in model_type:
         action_model = L1RegressionActionHead(
             input_dim=hidden_size,
@@ -31,6 +31,18 @@ def build_action_model(config):
             num_diffusion_steps=100,
             use_proprio=use_proprio,
             proprio_dim=proprio_dim
+        )
+    elif "Discrete" in model_type:
+        vocab_size = getattr(config, "vocab_size", 32000)
+        num_bins = getattr(config, "num_bins", 256)
+        action_model = DiscreteActionHead(
+            input_dim=hidden_size,
+            vocab_size=vocab_size,
+            action_dim=action_dim,
+            action_chunk=action_chunk,
+            num_bins=num_bins,
+            use_proprio=use_proprio,
+            proprio_dim=proprio_dim,
         )
     
     return action_model
