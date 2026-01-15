@@ -111,7 +111,7 @@ The following shows a comparison of evaluation results between models trained wi
 
 ### SimplerEnv
 
-| Model | Average | Put Spoon on Towel | Put Carrot on Plate | Stack Green Block on Yellow Block | Put Eggplant in Yellow Basket |
+| Model | Average | Spoon | Carrot | Stack Blocks | Eggplant |
 | --- | --- | --- | --- | --- | --- |
 | CogACT | 51.25 | 71.7 | 50.8 | 15 | 67.5 |
 | DB-CogACT | 69.45 | 87.5 | 65.28 | 29.17 | 95.83 |
