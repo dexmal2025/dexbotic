@@ -1,3 +1,4 @@
+1
 <div align="center">
   <img src="resources/logo.png" alt="Dexbotic Logo" width="280"/>
 
